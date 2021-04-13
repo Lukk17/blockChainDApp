@@ -45,3 +45,6 @@ check total supply in created token (should be 100):
 ```totalSupply = await token.totalSupply()```
 ```web3.utils.fromWei(totalSupply)```
 
+<hr>
+start tests with:
+```truffle test```
