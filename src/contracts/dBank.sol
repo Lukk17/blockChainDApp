@@ -33,7 +33,7 @@ contract dBank {
         etherBalanceOf[msg.sender] = etherBalanceOf[msg.sender] + msg.value;
 
         //start msg.sender hodling time
-        depositStart[msg.sender] = depositStart[msg.sender] + msg.value;
+        depositStart[msg.sender] = depositStart[msg.sender] + block.timestamp;
 
         //set msg.sender deposit status to true
         isDeposited[msg.sender] = true;
@@ -53,9 +53,8 @@ contract dBank {
         uint depositTime = block.timestamp - depositStart[msg.sender];
 
         //calc interest per second
-        // 31668017 is interest of 10%APY per sec - 1e15(10% of 0.01) / 31577600 (sec in 365.25 days)
-        // only deposits of multiple values of 0.01 ETH are allowed..
         uint interestPerSecond = 31668017 * (etherBalanceOf[msg.sender] / 1e16);
+
         //calc accrued interest
         uint interest = interestPerSecond * depositTime;
 
@@ -72,33 +71,5 @@ contract dBank {
 
         //emit event
         emit Withdraw(msg.sender, userBalance, depositTime, interest);
-    }
-
-    function borrow() payable public {
-        //check if collateral is >= than 0.01 ETH
-        //check if user doesn't have active loan
-
-        //add msg.value to ether collateral
-
-        //calc tokens amount to mint, 50% of msg.value
-
-        //mint&send tokens to user
-
-        //activate borrower's loan status
-
-        //emit event
-    }
-
-    function payOff() public {
-        //check if loan is active
-        //transfer tokens from user back to the contract
-
-        //calc fee
-
-        //send user's collateral minus fee
-
-        //reset borrower's data
-
-        //emit event
     }
 }
